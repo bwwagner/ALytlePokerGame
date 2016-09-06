@@ -7,4 +7,4 @@ Team Members:
 * [Branden Wagner](https://github.com/bwwagner)
 
 Description:  
-Networked game project
+Networked Poker/card game project.
