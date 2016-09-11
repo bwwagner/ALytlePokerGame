@@ -1,4 +1,4 @@
-# AndonNetGame
+# A Lytle Poker Game
 IUS CSCI-B438 Project
 Fall 2016
 
