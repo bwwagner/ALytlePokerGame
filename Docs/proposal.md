@@ -4,15 +4,23 @@ Jason Lytle
 
 Project Proposal    
 
-We will make a Poker application called A Lytle Poker Game using Java.  It will be developed in JavaFX using NetBeans.  
-We will have version control handled by GitHub.    
+Our project is a Java Poker application called A Lytle Poker Game.  It is being developed in JavaFX using NetBeans, 
+and we utilize GitHub for version control.  We plan for this to be a lightweight, networked game that is easy to use.   
 
-Poker will include rounds of betting until one person walks away with the total pot.  We will have 2 game modes. 
-The game will end when one player has won the entire pot. It will support 2-5 players.    
+A poker hand will include an ante and rounds of betting, so the game will end when one player has won the entire pot.  
+The size of the pot will be chosen at the start of the game. We plan to offer at least two rule variations to play, 
+but the card and suit rankings will follow the standard poker rules. It will support 2-5 players in direct competition.     
 
 Cards will be reshuffled at the beginning of each hand.  The standard 52 card deck will be used without wild cards.  
 The game assets (cards, playing table, etc.) are to be created by hand.    
 
-The status of the pot, player’s hands, and game logic will be kept on the server side to avoid cheating.    
+We plan to use an asynchronous model since poker is a turn-based game.  The game state will include: 
+all players’ current hand and bank, the overall pot size, size of the ante, current player’s turn, 
+and the order of the remaining cards in the deck. If a player’s bank equals the size of the overall pot 
+at the end of a hand then the game will end.    
 
-We plan to use an asynchronous model since poker is a turn-based game. We will have a server and a GUI client for players to connect to the game. The server might be open source, such as the one found at [https://github.com/jacobhyphenated/PokerServer.](https://github.com/jacobhyphenated/PokerServer) We will create the GUI client to play the game.
+The status of the pot, player’s hands, and game logic will be kept on the server side to avoid cheating.  
+The clients connect to a server via LAN in order to play. The server might be open source, 
+such as the one found at [https://github.com/jacobhyphenated/PokerServer.](https://github.com/jacobhyphenated/PokerServer)  
+We will create the GUI client to play the game.
+
