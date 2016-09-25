@@ -20,7 +20,5 @@ and the order of the remaining cards in the deck. If a player’s bank equals th
 at the end of a hand then the game will end.    
 
 The status of the pot, player’s hands, and game logic will be kept on the server side to avoid cheating.  
-The clients connect to a server via LAN in order to play. The server might be open source, 
-such as the one found at [https://github.com/jacobhyphenated/PokerServer.](https://github.com/jacobhyphenated/PokerServer)  
-We will create the GUI client to play the game.
+The clients connect to a server via LAN in order to play. We will create the Server and a GUI client to play the game.
 
