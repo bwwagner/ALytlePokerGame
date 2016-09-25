@@ -356,7 +356,8 @@ public class Poker extends Application
 
     public Image getCard(String[] card)
     {
-        String fileName = "file:///F:/Cards/";
+        //bww - look for image in relative path ./src/Resources/Images/Cards/
+        String fileName = "file:./src/Resources/Images/Cards/";
         for (int i = 0; i < card.length; i++)
         {
             fileName += card[i];
@@ -451,7 +452,8 @@ public class Poker extends Application
         root.getChildren().add(controls);
 
         //Begin Background
-        final ImageView background = new ImageView("file:///F:/Cards/Texas_Holdem_Poker_Table.jpg");
+        //bww - look for image in relative path ./src/Resources/Images/
+        final ImageView background = new ImageView("file:./src/Resources/Images/Texas_Holdem_Poker_Table.jpg");
         background.setFitWidth(1850);
         background.setPreserveRatio(true);
         background.setSmooth(true);
