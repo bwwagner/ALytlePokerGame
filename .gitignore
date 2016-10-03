@@ -27,3 +27,5 @@
 *.exe
 *.out
 *.app
+/Poker_Network/Poker/dist/
+/Poker_Network/Poker/build/

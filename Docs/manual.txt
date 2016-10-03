@@ -1,0 +1,7 @@
+Game Manual for LytlePoker
+
+How to play:
+Each player picks the cards they want to swap and clicks done.  The winner is determined.
+
+Rules of Poker:
+http://www.contrib.andrew.cmu.edu/~gc00/reviews/pokerrules

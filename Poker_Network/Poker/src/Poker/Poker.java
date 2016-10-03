@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * TODO:
+ *  - Betting Setup
+ *  - Network Code
+ *  - 
+ *  - Add poker variations
  */
 package Poker;
 
@@ -19,7 +21,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 /**
- *
+ * @author bwwagner
  * @author jrlytle
  */
 public class Poker extends Application
@@ -242,7 +244,8 @@ public class Poker extends Application
         ImageView[] hand = new ImageView[5];
         for (int i = 0; i < hand.length; i++)
         {
-            hand[i] = new ImageView("file:///F:/Cards/Blank.png");
+            //bww - look for image in relative path ./src/Resources/Images/Cards/
+            hand[i] = new ImageView("file:./src/Resources/Images/Cards/Blank.png");
         }
         return hand;
     }
