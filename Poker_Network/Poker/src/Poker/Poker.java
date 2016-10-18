@@ -24,8 +24,7 @@ import javafx.scene.control.Button;
  * @author bwwagner
  * @author jrlytle
  */
-public class Poker extends Application
-{
+public class Poker extends Application {
 
     boolean[] clickedHandOne = new boolean[5];
     boolean[] clickedHandTwo = new boolean[5];
@@ -43,8 +42,7 @@ public class Poker extends Application
 
     int winner = -1;
 
-    String[] types = new String[]
-    {
+    String[] types = new String[]{
         "Ace", "King", "Queen", "Jack", "Ten", "Nine", "Eight", "Seven", "Six", "Five", "Four", "Three", "Two"
     };
 
@@ -53,19 +51,15 @@ public class Poker extends Application
     {
         ArrayList<Integer> results = new ArrayList<>();
         int similarKind = 0;
-        for (int i = 0; i < hand.length; i++)
-        {
+        for (int i = 0; i < hand.length; i++) {
             String[] currentCard = hand[i].split("\\s+");
-            for (int j = i + 1; j < hand.length; j++)
-            {
+            for (int j = i + 1; j < hand.length; j++) {
                 String[] nextCard = hand[j].split("\\s+");
-                if (currentCard[0].equals(nextCard[0]))
-                {
+                if (currentCard[0].equals(nextCard[0])) {
                     similarKind++;
                 }
             }
-            if (similarKind > 0)
-            {
+            if (similarKind > 0) {
                 results.add(similarKind);
                 similarKind = 0;
             }
@@ -73,41 +67,33 @@ public class Poker extends Application
         return results;
     }
 
-    public int[] getHandRank(String[] hand)
-    {
+    public int[] getHandRank(String[] hand) {
         int[] handRank = new int[5];
-        for (int i = 0; i < hand.length; i++)
-        {
+        for (int i = 0; i < hand.length; i++) {
             handRank[i] = getCardRank(hand[i]);
         }
         Arrays.sort(handRank);
         return handRank;
     }
 
-    public int getCardRank(String card)
-    {
-        for (int i = 0; i < types.length; i++)
-        {
-            if (card.equals(types[i]))
-            {
+    public int getCardRank(String card) {
+        for (int i = 0; i < types.length; i++) {
+            if (card.equals(types[i])) {
                 return i + 2;
             }
         }
         return 0; //Will never be reached
     }
 
-    public String rankToCard(int rank)
-    {
+    public String rankToCard(int rank) {
         return types[rank - 2];
     }
 
     public boolean onePair(String[] hand) //Rank 8
     {
         ArrayList<Integer> results = numOfKind(hand);
-        if (!results.isEmpty())
-        {
-            if (results.get(0) == 1)
-            {
+        if (!results.isEmpty()) {
+            if (results.get(0) == 1) {
                 return true;
             }
         }
@@ -117,10 +103,8 @@ public class Poker extends Application
     public boolean twoPair(String[] hand) //Rank 7
     {
         ArrayList<Integer> results = numOfKind(hand);
-        if (!results.isEmpty())
-        {
-            if (results.size() == 2 && results.get(0) == 1 && results.get(1) == 1)
-            {
+        if (!results.isEmpty()) {
+            if (results.size() == 2 && results.get(0) == 1 && results.get(1) == 1) {
                 return true;
             }
         }
@@ -130,10 +114,8 @@ public class Poker extends Application
     public boolean threeOfAKind(String[] hand) //Rank 6
     {
         ArrayList<Integer> results = numOfKind(hand);
-        if (!results.isEmpty())
-        {
-            if (results.size() == 2 && results.get(0) == 2 && results.get(1) == 1)
-            {
+        if (!results.isEmpty()) {
+            if (results.size() == 2 && results.get(0) == 2 && results.get(1) == 1) {
                 return true;
             }
         }
@@ -147,17 +129,13 @@ public class Poker extends Application
         String[] thirdCard = hand[2].split("\\s+");
         String[] fourthCard = hand[3].split("\\s+");
         String[] fifthCard = hand[4].split("\\s+");
-        String[] cardValues = new String[]
-        {
+        String[] cardValues = new String[]{
             firstCard[0], secondCard[0], thirdCard[0], fourthCard[0], fifthCard[0]
         };
         String max = maxCard(cardValues);
-        if (getCardRank(max) != 14 && getCardRank(max) > 5)
-        {
-            for (int i = getCardRank(max); i > getCardRank(max) - 5; i--)
-            {
-                for (int j = 0; j < 5; j++)
-                {
+        if (getCardRank(max) != 14 && getCardRank(max) > 5) {
+            for (int i = getCardRank(max); i > getCardRank(max) - 5; i--) {
+                for (int j = 0; j < 5; j++) {
                     if (contains(cardValues, rankToCard(i)))//(!contains(cardValues, rankToCard(i)))
                     {
                         return false;
@@ -182,10 +160,8 @@ public class Poker extends Application
     public boolean fullHouse(String[] hand) //Rank 3
     {
         ArrayList<Integer> results = numOfKind(hand);
-        if (!results.isEmpty())
-        {
-            if (results.size() == 3 && ((results.get(0) == 2 && results.get(1) == 1 && results.get(2) == 1) || (results.get(0) == 1 && results.get(1) == 2 && results.get(2) == 1)))
-            {
+        if (!results.isEmpty()) {
+            if (results.size() == 3 && ((results.get(0) == 2 && results.get(1) == 1 && results.get(2) == 1) || (results.get(0) == 1 && results.get(1) == 2 && results.get(2) == 1))) {
                 return true;
             }
         }
@@ -204,151 +180,118 @@ public class Poker extends Application
     }
 
     /*public boolean contains(String[] hand, String value)
-    {
-        for (String card : hand)
-        {
-            if (card.equals(value))
-            {
+     {
+     for (String card : hand)
+     {
+     if (card.equals(value))
+     {
+     return true;
+     }
+     }
+     return false;
+     }*/
+    public <E> boolean contains(E[] array, E value) {
+        for (int i = 0; i < 5; i++) {
+            if (array[i].equals(value)) {
                 return true;
             }
         }
         return false;
-    }*/
+    }
 
-    public <E> boolean contains(E[] array, E value)
-    {
-        for (int i = 0; i < 5; i++)
-        {
-            if (array[i].equals(value))
-            {
+    public boolean boolContains(boolean[] clickedCards, boolean value) {
+        for (boolean clickedCard : clickedCards) {
+            if (clickedCard == value) {
                 return true;
             }
         }
         return false;
     }
-    
-    public boolean boolContains(boolean[] clickedCards, boolean value)
-    {
-        for (boolean clickedCard : clickedCards)
-        {
-            if (clickedCard == value)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-    
-    public ImageView[] fillHands()
-    {
+
+    public ImageView[] fillHands() {
         ImageView[] hand = new ImageView[5];
-        for (int i = 0; i < hand.length; i++)
-        {
+        for (int i = 0; i < hand.length; i++) {
             //bww - look for image in relative path ./src/Resources/Images/Cards/
             hand[i] = new ImageView("file:./src/Resources/Images/Cards/Blank.png");
         }
         return hand;
     }
 
-    public String maxCard(String[] hand)
-    {
+    public String maxCard(String[] hand) {
         int max = -1;
-        for (int i = 0; i < 5; i++)
-        {
-            if (getCardRank(hand[i]) > max)
-            {
+        for (int i = 0; i < 5; i++) {
+            if (getCardRank(hand[i]) > max) {
                 max = getCardRank(hand[i]);
             }
         }
         return rankToCard(max);
     }
 
-    public void fillDeck(ArrayList<String> deck)
-    {
-        String[] suits = new String[]
-        {
+    public void fillDeck(ArrayList<String> deck) {
+        String[] suits = new String[]{
             "Hearts", "Diamonds", "Spades", "Clubs"
         };
-        for (String type : types)
-        {
-            for (String suit : suits)
-            {
+        for (String type : types) {
+            for (String suit : suits) {
                 deck.add(type + " of " + suit);
             }
         }
     }
 
-    public int initialRank(String[] hand)
-    {
-        if (straightFlush(hand))
-        {
+    public int initialRank(String[] hand) {
+        if (straightFlush(hand)) {
             return 1;
         }
-        if (fourOfAKind(hand))
-        {
+        if (fourOfAKind(hand)) {
             return 2;
         }
-        if (fullHouse(hand))
-        {
+        if (fullHouse(hand)) {
             return 3;
         }
-        if (flush(hand))
-        {
+        if (flush(hand)) {
             return 4;
         }
-        if (straight(hand))
-        {
+        if (straight(hand)) {
             return 5;
         }
-        if (threeOfAKind(hand))
-        {
+        if (threeOfAKind(hand)) {
             return 6;
         }
-        if (twoPair(hand))
-        {
+        if (twoPair(hand)) {
             return 7;
         }
-        if (onePair(hand))
-        {
+        if (onePair(hand)) {
             return 8;
         }
         return 9; //High Card
     }
 
-    public int faceOff(String[] handOne, String[] handTwo)
-    {
+    public int faceOff(String[] handOne, String[] handTwo) {
         int rankOne = initialRank(handOne);
         int rankTwo = initialRank(handTwo);
 
-        if (rankOne < rankTwo)
-        {
+        if (rankOne < rankTwo) {
             return 1; //Player 1 wins
         }
-        if (rankTwo < rankOne)
-        {
+        if (rankTwo < rankOne) {
             return 2; //Player 2 wins
         }
-        if (rankOne == rankTwo)
-        {
+        if (rankOne == rankTwo) {
             //Neither Player wins, both have same type of hand.
             //Check internal rank for winner
             String[] handOneTypes = new String[5];
             String[] handTwoTypes = new String[5];
-            for (int i = 0; i < 5; i++)
-            {
+            for (int i = 0; i < 5; i++) {
                 handOneTypes[i] = handOne[i].split("\\s+")[0];
                 handTwoTypes[i] = handTwo[i].split("\\s+")[0];
             }
             int[] handOneRanks = getHandRank(handOneTypes);
             int[] handTwoRanks = getHandRank(handTwoTypes);
-            for (int i = 4; i >= 0; i--)
-            {
-                if (handOneRanks[i] > handTwoRanks[i])
-                {
+            for (int i = 4; i >= 0; i--) {
+                if (handOneRanks[i] > handTwoRanks[i]) {
                     return 1; //Player 1 wins internal rank
                 }
-                if (handOneRanks[i] < handTwoRanks[i])
-                {
+                if (handOneRanks[i] < handTwoRanks[i]) {
                     return 2; //Player 2 wins internal rank
                 }
             }
@@ -357,15 +300,12 @@ public class Poker extends Application
         return -1; //Error if this point is reached
     }
 
-    public Image getCard(String[] card)
-    {
+    public Image getCard(String[] card) {
         //bww - look for image in relative path ./src/Resources/Images/Cards/
         String fileName = "file:./src/Resources/Images/Cards/";
-        for (int i = 0; i < card.length; i++)
-        {
+        for (int i = 0; i < card.length; i++) {
             fileName += card[i];
-            if (i < card.length - 1)
-            {
+            if (i < card.length - 1) {
                 fileName += "_";
             }
         }
@@ -373,18 +313,14 @@ public class Poker extends Application
         return new Image(fileName);
     }
 
-    public void tradeCards(ArrayList<String> deck, String[] handOne, String[] handTwo)
-    {
+    public void tradeCards(ArrayList<String> deck, String[] handOne, String[] handTwo) {
         //Alternate through each player's cards needing to be traded. 
         //If only one player wishes to trade cards, then that players cards will be the only one traded.
         Random r = new Random();
         int draw;
-        while (boolContains(clickedHandOne, true) || boolContains(clickedHandTwo, true))
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if (clickedHandOne[i])
-                {
+        while (boolContains(clickedHandOne, true) || boolContains(clickedHandTwo, true)) {
+            for (int i = 0; i < 5; i++) {
+                if (clickedHandOne[i]) {
                     draw = r.nextInt(deck.size());
                     handOne[i] = deck.get(draw);
                     h1[i] = handOne[i].split("\\s+");
@@ -392,8 +328,7 @@ public class Poker extends Application
                     deck.remove(draw);
                     clickedHandOne[i] = false;
                 }
-                if (clickedHandTwo[i])
-                {
+                if (clickedHandTwo[i]) {
                     draw = r.nextInt(deck.size());
                     handTwo[i] = deck.get(draw);
                     h2[i] = handTwo[i].split("\\s+");
@@ -405,10 +340,8 @@ public class Poker extends Application
         }
     }
 
-    public String numToString(int value)
-    {
-        switch (value)
-        {
+    public String numToString(int value) {
+        switch (value) {
             case 1:
                 return "One";
             case 2:
@@ -425,8 +358,7 @@ public class Poker extends Application
     }
 
     @Override
-    public void start(Stage primaryStage)
-    {
+    public void start(Stage primaryStage) {
         Random r = new Random();
         ArrayList<String> deck = new ArrayList<>();
         String[] handOne = new String[5];
@@ -436,15 +368,11 @@ public class Poker extends Application
         fillDeck(deck);
         Collections.shuffle(deck);
 
-        for (int i = 0; i < 10; i++)
-        {
+        for (int i = 0; i < 10; i++) {
             draw = r.nextInt(deck.size());
-            if (i % 2 == 0)
-            {
+            if (i % 2 == 0) {
                 handOne[(i / 2)] = deck.get(draw);
-            }
-            else
-            {
+            } else {
                 handTwo[((i - 1) / 2)] = deck.get(draw);
             }
             deck.remove(draw);
@@ -484,8 +412,7 @@ public class Poker extends Application
         //End Hand Two Data
 
         //Start Hand One and Hand Two Images
-        for (int i = 0; i < handOneCards.length; i++)
-        {
+        for (int i = 0; i < handOneCards.length; i++) {
             //Hand One Start
             handOneCards[i].setImage(getCard(h1[i]));
 
@@ -506,46 +433,36 @@ public class Poker extends Application
         //End Hand One and Hand Two Images
 
         //Start MouseListener for Hand One for Trading Cards
-        handOneCards[0].setOnMouseClicked((MouseEvent t) ->
-        {
+        handOneCards[0].setOnMouseClicked((MouseEvent t) -> {
             clickedHandOne[0] ^= true;
         });
-        handOneCards[1].setOnMouseClicked((MouseEvent t) ->
-        {
+        handOneCards[1].setOnMouseClicked((MouseEvent t) -> {
             clickedHandOne[1] ^= true;
         });
-        handOneCards[2].setOnMouseClicked((MouseEvent t) ->
-        {
+        handOneCards[2].setOnMouseClicked((MouseEvent t) -> {
             clickedHandOne[2] ^= true;
         });
-        handOneCards[3].setOnMouseClicked((MouseEvent t) ->
-        {
+        handOneCards[3].setOnMouseClicked((MouseEvent t) -> {
             clickedHandOne[3] ^= true;
         });
-        handOneCards[4].setOnMouseClicked((MouseEvent t) ->
-        {
+        handOneCards[4].setOnMouseClicked((MouseEvent t) -> {
             clickedHandOne[4] ^= true;
         });
         //End MouseListener for Hand One for Trading Cards
         //Start MouseListener for Hand Two for Trading Cards
-        handTwoCards[0].setOnMouseClicked((MouseEvent t) ->
-        {
+        handTwoCards[0].setOnMouseClicked((MouseEvent t) -> {
             clickedHandTwo[0] ^= true;
         });
-        handTwoCards[1].setOnMouseClicked((MouseEvent t) ->
-        {
+        handTwoCards[1].setOnMouseClicked((MouseEvent t) -> {
             clickedHandTwo[1] ^= true;
         });
-        handTwoCards[2].setOnMouseClicked((MouseEvent t) ->
-        {
+        handTwoCards[2].setOnMouseClicked((MouseEvent t) -> {
             clickedHandTwo[2] ^= true;
         });
-        handTwoCards[3].setOnMouseClicked((MouseEvent t) ->
-        {
+        handTwoCards[3].setOnMouseClicked((MouseEvent t) -> {
             clickedHandTwo[3] ^= true;
         });
-        handTwoCards[4].setOnMouseClicked((MouseEvent t) ->
-        {
+        handTwoCards[4].setOnMouseClicked((MouseEvent t) -> {
             clickedHandTwo[4] ^= true;
         });
         //End MouseListener of Hand Two for Trading Cards
@@ -561,16 +478,13 @@ public class Poker extends Application
         handTwoDone.setLayoutY(25);
         root.getChildren().add(handTwoDone);
 
-        handOneDone.setOnMouseClicked((MouseEvent m) ->
-        {
+        handOneDone.setOnMouseClicked((MouseEvent m) -> {
             playerOneDone = true;
-            if (playerTwoDone)
-            {
+            if (playerTwoDone) {
                 tradeCards(deck, handOne, handTwo);
                 winner = faceOff(handOne, handTwo);
                 //Winner is Player One Start
-                if (winner == 1)
-                {
+                if (winner == 1) {
                     Text t = new Text(800, 925, "Winner");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -580,8 +494,7 @@ public class Poker extends Application
                 }
                 //Winner is Player One End
                 //Winner is Player Two Start
-                if (winner == 2)
-                {
+                if (winner == 2) {
                     Text t = new Text(800, 50, "Winner");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -591,8 +504,7 @@ public class Poker extends Application
                 }
                 //Winner is Player Two End
                 //No Winner Start
-                if (winner == 3)
-                {
+                if (winner == 3) {
                     Text t = new Text(938, 476, "Draw");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -604,17 +516,14 @@ public class Poker extends Application
             }
         });
 
-        handTwoDone.setOnMouseClicked((MouseEvent m) ->
-        {
+        handTwoDone.setOnMouseClicked((MouseEvent m) -> {
             playerTwoDone = true;
-            if (playerOneDone)
-            {
+            if (playerOneDone) {
                 tradeCards(deck, handOne, handTwo);
                 winner = faceOff(handOne, handTwo);
 
                 //Winner is Player One Start
-                if (winner == 1)
-                {
+                if (winner == 1) {
                     Text t = new Text(800, 925, "Winner");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -624,8 +533,7 @@ public class Poker extends Application
                 }
                 //Winner is Player One End
                 //Winner is Player Two Start
-                if (winner == 2)
-                {
+                if (winner == 2) {
                     Text t = new Text(800, 50, "Winner");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -635,8 +543,7 @@ public class Poker extends Application
                 }
                 //Winner is Player Two End
                 //No Winner Start
-                if (winner == 3)
-                {
+                if (winner == 3) {
                     Text t = new Text(938, 476, "Draw");
                     t.setWrappingWidth(200);
                     t.setTextAlignment(TextAlignment.JUSTIFY);
@@ -659,8 +566,7 @@ public class Poker extends Application
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         launch(args);
     }
 }

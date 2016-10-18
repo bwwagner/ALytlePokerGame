@@ -10,8 +10,8 @@ import java.net.Socket;
 
 /**
  * A TCP server that runs on port 9090. Waits for clients to connect and
- * transmits a "Connection Successful!" string. 
- * Adapted from code at: http://cs.lmu.edu/~ray/notes/javanetexamples/
+ * transmits a "Connection Successful!" string. Adapted from code at:
+ * http://cs.lmu.edu/~ray/notes/javanetexamples/
  *
  * @author bwwagner
  */

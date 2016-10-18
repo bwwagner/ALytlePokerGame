@@ -7,4 +7,4 @@ Team Members:
 * [Branden Wagner](https://github.com/bwwagner)
 
 Description:  
-Networked Poker game written in Java.  Includes a client and a server.
+Networked Poker game written in Java with JavaFX.  Includes a client and a server which communicate over TCP.
