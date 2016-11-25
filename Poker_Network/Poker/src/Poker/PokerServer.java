@@ -38,7 +38,6 @@ public class PokerServer
 
 class Game 
 {
-  private Player[] board = {null, null, null, null, null, null, null, null, null}; //Change board to hand and length to 5?
   Player currentPlayer;
   
   boolean[] clickedHandOne = new boolean[5];
@@ -174,7 +173,7 @@ class Game
       {
         for (int j = 0; j < 5; j++)
         {
-          if (contains(cardValues, rankToCard(i)))//(!contains(cardValues, rankToCard(i)))
+          if (contains(cardValues, rankToCard(i)))
           {
             return false;
           }
