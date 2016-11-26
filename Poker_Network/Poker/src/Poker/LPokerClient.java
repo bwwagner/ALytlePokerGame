@@ -32,7 +32,24 @@ import java.net.Socket;
  */
 public class LPokerClient extends Application {
 
+    protected String Server;
+
+    protected ImageView[] handOneCards = fillHands();
+    protected ImageView[] handTwoCards = fillHands();
+
+    protected String[][] h1 = new String[5][3];
+    protected String[][] h2 = new String[5][3];
+
     public void start(Stage primaryStage) {
+        String[] handOne = new String[5];  // player's hand
+        String[] handTwo = new String[5];  // opponent's hand
+
+        //int draw;
+        for (int i = 0; i < handOne.length; i++) {
+            handOne[i] = "";  // TODO: Get Card from Server
+            handTwo[i] = "";
+        }
+
         final Pane root = new Pane();
         final VBox controls = new VBox(5);
         root.getChildren().add(controls);
@@ -72,18 +89,65 @@ public class LPokerClient extends Application {
         }
         //end Server Address Entry
 
+        //Start Hand One and Hand Two Images
+        for (int i = 0; i < handOneCards.length; i++) {
+            //Hand One Start
+            handOneCards[i].setImage(getCard(h1[i]));
+
+            handOneCards[i].setLayoutX(400 + (i * 215));
+            handOneCards[i].setLayoutY(590);
+
+            root.getChildren().add(handOneCards[i]);
+            //Hand One End
+            //Hand Two Start
+            handTwoCards[i].setImage(getCard(h2[i]));
+
+            handTwoCards[i].setLayoutX(400 + (i * 215));
+            handTwoCards[i].setLayoutY(82);
+
+            root.getChildren().add(handTwoCards[i]);
+            //Hand Two End
+        }
+        //End Hand One and Hand Two Images        
+
     }//end start
 
     public static void main(String[] args) throws IOException {
+        boolean retry = true;
         String serverAddress = "127.0.0.1";
+        while (retry) {
+            Socket server = new Socket(serverAddress, 9090);
+            try {
+                BufferedReader input
+                        = new BufferedReader(new InputStreamReader(server.getInputStream()));
+                String answer = input.readLine();
+                System.out.print(answer);
 
-        Socket s = new Socket(serverAddress, 9090);
-        BufferedReader input
-                = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        String answer = input.readLine();
-
-        launch(args);
-
+                launch(args);
+            } finally {
+                server.close();
+            }
+        }
     }//main    
+
+    public ImageView[] fillHands() {
+        ImageView[] hand = new ImageView[5];
+        for (int i = 0; i < hand.length; i++) {
+            hand[i] = new ImageView("file:./src/Resources/Images/Cards/Blank.png");
+        }
+        return hand;
+    }
+
+    public Image getCard(String[] card) {
+        String fileName = "file:./src/Resources/Images/Cards/";
+        for (int i = 0; i < card.length; i++) {
+            fileName += card[i];
+            if (i < card.length - 1) {
+                fileName += "_";
+            }
+        }
+        fileName += ".png";
+        return new Image(fileName);
+    }
 
 }//LPokerClient
