@@ -6,4 +6,7 @@ Each player picks the cards they want to swap and clicks done.  The winner is de
 Rules of Poker:
 http://www.contrib.andrew.cmu.edu/~gc00/reviews/pokerrules
 
-Card back and Joker images reused with permission. Retrieved from: https://commons.wikimedia.org/wiki/Category:SVG_playing_cards
+Card back and Joker images reused with permission. 
+Card Back Retrieved from: https://commons.wikimedia.org/wiki/File:Seme_coppe_carte_spagnole.svg
+Black Joker Retrieved from: https://commons.wikimedia.org/wiki/File:Cards-Joker-Black.svg
+Red Joker Retrieved from: https://commons.wikimedia.org/wiki/File:Cards-Joker-Red.svg
