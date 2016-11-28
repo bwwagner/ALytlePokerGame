@@ -19,6 +19,7 @@ import javafx.scene.control.TextInputDialog;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
@@ -44,18 +45,20 @@ public class LPokerClient extends Application {
 
         String[] handOne = new String[5];  // player's hand
         String[] handTwo = new String[5];  // opponent's hand
-        Betting player1bets = new Betting(0, 0);
-        Betting player2bets = new Betting(0, 0);
+        //Betting player1bets = new Betting(0, 0);
+        //Betting player2bets = new Betting(0, 0);
 
         String inMessage = this.Server;
         String message = "";
         String serverAddress = "localhost";
+        
+        String[][] allHands;
 
-        System.out.println(inMessage);
+        //System.out.println(inMessage);
         //int draw;
         for (int i = 0; i < handOne.length; i++) {
-            handOne[i] = "";  // TODO: Get Card from Server
-            handTwo[i] = "";
+            handOne[i] = "";//new ImageView(new Image(handOne[i]));  // TODO: Get Card from Server
+            handTwo[i] = "";//new ImageView(new Image(handTwo[i]));
         }
 
         final Pane root = new Pane();
@@ -97,33 +100,39 @@ public class LPokerClient extends Application {
             Socket server = new Socket(serverAddress, 9090);
             BufferedReader input
                     = new BufferedReader(new InputStreamReader(server.getInputStream()));
+            
+            //Get Hand One Images
             message = input.readLine();
-            System.out.print(message);
+            message = message.replaceAll("\\[|\\]", "");
+            //System.out.println(message);
+            handOne = message.trim().split(", ");  //converts comma delimited string
+
+            for (int i = 0; i < handOne.length; i++)
+            {
+                handOneCards[i] = new ImageView(handOne[i]);
+            }
+            message = input.readLine();
+            System.out.println(message);
+            //PrintWriter out = new PrintWriter(server.getOutputStream(), true);
+            //out.println(Arrays.toString(handOne));
+            //Get Hand Two Images
+            /*message = input.readLine();
+            message = message.replaceAll("\\[|\\]", "");
+            handTwo = message.trim().split(", ");  //converts comma delimited string
+            
+            for (int i = 0; i < handOne.length; i++)
+            {
+                handTwoCards[i] = new ImageView(handTwo[i]);
+            }*/
+            //System.out.print(message);
         } catch (IOException e) {
             System.out.println("Connection Failed.");
         }
         // end open socket
 
-        // begin add cards to root
-        //echo h1
-        for (int i = 0; i < h1.length; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.println(h1[i][j]);
-            }
-        }
-
-        handOne = message.trim().split(",");  //converts comma delimited string
-
         //put handOne info in h1
         for (int i = 0; i < handOne.length; i++) {
             h1[i][0] = handOne[i];
-        }
-
-        //echo h1
-        for (int i = 0; i < h1.length; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.println(h1[i][j]);
-            }
         }
 
         //TODO: Fix Conversion of h1 to handOne Imageview so Cards will display
@@ -132,18 +141,16 @@ public class LPokerClient extends Application {
                 i < handOneCards.length;
                 i++) {
             //Hand One Start
-            handOneCards[i].setImage(getCard(h1[i]));
+            //handOneCards[i].setImage(getCard(h1[i]));
 
-            handOneCards[i].setLayoutX(400 + (i * 215));
-            handOneCards[i].setLayoutY(590);
+            handOneCards[i].relocate(400 + (i * 215), 590);
 
             root.getChildren().add(handOneCards[i]);
             //Hand One End
             //Hand Two Start
-            handTwoCards[i].setImage(getCard(h2[i]));
+            //handTwoCards[i].setImage(getCard(h2[i]));
 
-            handTwoCards[i].setLayoutX(400 + (i * 215));
-            handTwoCards[i].setLayoutY(82);
+            handTwoCards[i].relocate(400 + (i * 215), 82);
 
             root.getChildren().add(handTwoCards[i]);
             //Hand Two End
