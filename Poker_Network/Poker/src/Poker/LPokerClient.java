@@ -78,7 +78,7 @@ public class LPokerClient extends Application {
         //Display Window End
 
         //Server Address Entry
-        final TextInputDialog ipAddr = new TextInputDialog("192.168.1.2");
+        final TextInputDialog ipAddr = new TextInputDialog("localhost");
 
         //Display IP Address Dialog
         ipAddr.setTitle("Connect to Poker Server");
