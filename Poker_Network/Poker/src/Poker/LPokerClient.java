@@ -33,20 +33,23 @@ public class LPokerClient extends Application {
 
     protected String Server;
 
-    protected ImageView[] handOneCards = fillHands();
-    protected ImageView[] handTwoCards = fillHands();
-
-    protected String[][] h1 = new String[5][3];
-    protected String[][] h2 = new String[5][3];
-
     //p Socket server = null;
     public void start(Stage primaryStage) {
+
+        ImageView[] handOneCards = fillHands();
+        ImageView[] handTwoCards = fillHands();
+
+        String[][] h1 = new String[5][3];
+        String[][] h2 = new String[5][3];
+
         String[] handOne = new String[5];  // player's hand
         String[] handTwo = new String[5];  // opponent's hand
         Betting player1bets = new Betting(0, 0);
         Betting player2bets = new Betting(0, 0);
 
         String inMessage = this.Server;
+        String message = "";
+        String serverAddress = "localhost";
 
         System.out.println(inMessage);
         //int draw;
@@ -71,12 +74,6 @@ public class LPokerClient extends Application {
         root.getChildren().add(background);
         //End Background
 
-        //Display Window Start
-        primaryStage.setTitle("Poker Network");
-        primaryStage.setScene(new Scene(root, 1876, 953));
-        primaryStage.show();
-        //Display Window End
-
         //Server Address Entry
         final TextInputDialog ipAddr = new TextInputDialog("localhost");
 
@@ -86,26 +83,50 @@ public class LPokerClient extends Application {
         ipAddr.setContentText("Please enter the server's IP Address:");
         //End Display IP Address Dialog
 
-        //TODO use this result to choose server IP
+        //DONE use this result to choose server IP
         //Get the response value.
         Optional<String> result = ipAddr.showAndWait();
         if (result.isPresent()) {
             System.out.println("Your choice: " + result.get());
+            serverAddress = result.get();
         }
         //end Server Address Entry
 
-        String serverAddress = ipAddr.toString(); //need to fix this conversion
-
+        // begin open socket
         try {
-            Socket server = new Socket("localhost", 9090);
+            Socket server = new Socket(serverAddress, 9090);
             BufferedReader input
                     = new BufferedReader(new InputStreamReader(server.getInputStream()));
-            String answer = input.readLine();
-            System.out.print(answer);
+            message = input.readLine();
+            System.out.print(message);
         } catch (IOException e) {
             System.out.println("Connection Failed.");
         }
+        // end open socket
 
+        // begin add cards to root
+        //echo h1
+        for (int i = 0; i < h1.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.println(h1[i][j]);
+            }
+        }
+
+        handOne = message.trim().split(",");  //converts comma delimited string
+
+        //put handOne info in h1
+        for (int i = 0; i < handOne.length; i++) {
+            h1[i][0] = handOne[i];
+        }
+
+        //echo h1
+        for (int i = 0; i < h1.length; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.println(h1[i][j]);
+            }
+        }
+
+        //TODO: Fix Conversion of h1 to handOne Imageview so Cards will display
         //Start Hand One and Hand Two Images
         for (int i = 0;
                 i < handOneCards.length;
@@ -117,7 +138,7 @@ public class LPokerClient extends Application {
             handOneCards[i].setLayoutY(590);
 
             root.getChildren().add(handOneCards[i]);
-        //Hand One End
+            //Hand One End
             //Hand Two Start
             handTwoCards[i].setImage(getCard(h2[i]));
 
@@ -127,13 +148,20 @@ public class LPokerClient extends Application {
             root.getChildren().add(handTwoCards[i]);
             //Hand Two End
         }
-        //End Hand One and Hand Two Images        
+        //End Hand One and Hand Two Images   
+
+        // End add cards to root
+        //Display Window Start
+        primaryStage.setTitle("Poker Network");
+        primaryStage.setScene(new Scene(root, 1876, 953));
+        primaryStage.show();
+        //Display Window End        
 
     }//end start
 
     public static void main(String[] args) throws IOException {
         launch(args);
-
+        System.exit(0);
     }//main    
 
     public ImageView[] fillHands() {

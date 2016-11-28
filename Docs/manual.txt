@@ -1,7 +1,8 @@
 Game Manual for LytlePoker
 
 How to play:
-Each player picks the cards they want to swap and clicks done.  The winner is determined.
+The game follows 5 Card Draw Rules. Each player picks the cards they want to swap and clicks done.  
+The winner is determined according to standard poker rankings, with the best hand winning the pot.
 
 Rules of Poker:
 http://www.contrib.andrew.cmu.edu/~gc00/reviews/pokerrules
