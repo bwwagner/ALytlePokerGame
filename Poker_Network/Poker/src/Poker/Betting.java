@@ -9,13 +9,16 @@ package Poker;
  */
 public class Betting {
     private int jackpot = 0;
+    private int ante = 0;
     
     //Blind betting mode
     private int largeBlind;
     private int smallBlind;
     
-    //Ante betting mode
-    private int ante;
+    public Betting(int newPot, int newAnte){
+        jackpot = newPot;
+        ante = newAnte;
+    }  // end Constructor
     
     public int getLarge(){
         return this.largeBlind;

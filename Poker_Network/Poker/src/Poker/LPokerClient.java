@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -40,10 +39,16 @@ public class LPokerClient extends Application {
     protected String[][] h1 = new String[5][3];
     protected String[][] h2 = new String[5][3];
 
+    //p Socket server = null;
     public void start(Stage primaryStage) {
         String[] handOne = new String[5];  // player's hand
         String[] handTwo = new String[5];  // opponent's hand
+        Betting player1bets = new Betting(0, 0);
+        Betting player2bets = new Betting(0, 0);
 
+        String inMessage = this.Server;
+
+        System.out.println(inMessage);
         //int draw;
         for (int i = 0; i < handOne.length; i++) {
             handOne[i] = "";  // TODO: Get Card from Server
@@ -73,7 +78,7 @@ public class LPokerClient extends Application {
         //Display Window End
 
         //Server Address Entry
-        final TextInputDialog ipAddr = new TextInputDialog("localhost");
+        final TextInputDialog ipAddr = new TextInputDialog("192.168.1.2");
 
         //Display IP Address Dialog
         ipAddr.setTitle("Connect to Poker Server");
@@ -89,8 +94,22 @@ public class LPokerClient extends Application {
         }
         //end Server Address Entry
 
+        String serverAddress = ipAddr.toString(); //need to fix this conversion
+
+        try {
+            Socket server = new Socket("localhost", 9090);
+            BufferedReader input
+                    = new BufferedReader(new InputStreamReader(server.getInputStream()));
+            String answer = input.readLine();
+            System.out.print(answer);
+        } catch (IOException e) {
+            System.out.println("Connection Failed.");
+        }
+
         //Start Hand One and Hand Two Images
-        for (int i = 0; i < handOneCards.length; i++) {
+        for (int i = 0;
+                i < handOneCards.length;
+                i++) {
             //Hand One Start
             handOneCards[i].setImage(getCard(h1[i]));
 
@@ -98,7 +117,7 @@ public class LPokerClient extends Application {
             handOneCards[i].setLayoutY(590);
 
             root.getChildren().add(handOneCards[i]);
-            //Hand One End
+        //Hand One End
             //Hand Two Start
             handTwoCards[i].setImage(getCard(h2[i]));
 
@@ -113,21 +132,8 @@ public class LPokerClient extends Application {
     }//end start
 
     public static void main(String[] args) throws IOException {
-        boolean retry = true;
-        String serverAddress = "127.0.0.1";
-        while (retry) {
-            Socket server = new Socket(serverAddress, 9090);
-            try {
-                BufferedReader input
-                        = new BufferedReader(new InputStreamReader(server.getInputStream()));
-                String answer = input.readLine();
-                System.out.print(answer);
+        launch(args);
 
-                launch(args);
-            } finally {
-                server.close();
-            }
-        }
     }//main    
 
     public ImageView[] fillHands() {
