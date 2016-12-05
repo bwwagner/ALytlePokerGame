@@ -4,6 +4,9 @@ How to play:
 The game follows 5 Card Draw Rules. Each player picks the cards they want to swap and clicks done.  
 The winner is determined according to standard poker rankings, with the best hand winning the pot.
 
+
+Developed using NetBeans 8.0.2 with Java 1.8 and JavaFX 8u40.
+
 Rules of Poker:
 http://www.contrib.andrew.cmu.edu/~gc00/reviews/pokerrules
 
